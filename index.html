@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inicio - Inventario de Libros</title>
+  <style>
+    /* Estilos generales */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Estilos del encabezado */
+    header {
+      display: flex;
+      align-items: center;
+      padding: 20px;
+      background-color: #f5f5f5;
+      justify-content: space-between;
+    }
+
+    header img {
+      max-width: 100px;
+    }
+
+    header h1 {
+      font-size: 24px;
+      margin: 0;
+      color: #004aad;
+      text-align: left;
+    }
+
+    /* Estilos del nav con íconos */
+    nav {
+      display: flex;
+      gap: 20px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #004aad;
+      font-size: 24px;
+    }
+
+    nav a:hover {
+      color: #00327a;
+    }
+
+    /* Estilos del contenedor principal */
+    .homepage-container {
+      text-align: center;
+      padding: 50px 20px;
+    }
+
+    .homepage-container h1 {
+      font-size: 28px;
+      color: #004aad;
+    }
+
+    .homepage-container p {
+      font-size: 18px;
+      margin-bottom: 30px;
+      color: #333;
+    }
+
+    /* Estilos de los botones */
+    .button-group {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .button-group a {
+      text-decoration: none;
+      background-color: #004aad;
+      color: white;
+      padding: 15px 25px;
+      font-size: 16px;
+      border-radius: 8px;
+      transition: background-color 0.3s;
+    }
+
+    .button-group a:hover {
+      background-color: #00327a;
+    }
+
+    /* Estilos del pie de página */
+    footer {
+      background-color: #004aad;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      position: relative;
+      bottom: 0;
+      width: 100%;
+    }
+
+    footer p {
+      margin: 0;
+    }
+
+    footer a {
+      color: white;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo.png" alt="Logo de la Institución">
+    <h1>Escuela Primaria Jóvenes y Adultos N°8 - "Eva Duarte"</h1>
+    <nav>
+      <a href="index.html" title="home">🏠</a>
+      <a href="agregar_libros.html" title="Agregar Libro">➕</a>
+      <a href="buscar_libros.html" title="Buscar Libro">🔍</a>
+      <a href="listar_libros.html" title="Listar y Exportar Libro">📊</a>
+    </nav>
+  </header>
+
+  <main class="homepage-container">
+    <h1>Bienvenido al Inventario de Libros</h1>
+    <p>Seleccione una acción para comenzar:</p>
+    <div class="button-group">
+      <a href="agregar_libros.html">Agregar Libros</a>
+      <a href="buscar_libros.html">Buscar Libros</a>
+      <a href="listar_libros.html">Listar y Exportar Libros</a>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 Danderfert Cesar. Todos los derechos reservados.</p>
+  </footer>
+</body>
+</html>

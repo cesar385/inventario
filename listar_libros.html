@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Listar Libros</title>
+  <style>
+    /* Estilos generales */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Encabezado */
+    header {
+      background-color: #f5f5f5;
+      display: flex;
+      align-items: center;
+      padding: 20px;
+      justify-content: space-between;
+    }
+
+    header img {
+      max-width: 100px;
+    }
+
+    header h1 {
+      font-size: 24px;
+      color: #004aad;
+      margin: 0;
+      text-align: left;
+    }
+
+    nav {
+      margin-top: 10px;
+    }
+
+    nav a {
+      text-decoration: none;
+      margin: 0 15px; /* Aumenté el margen entre los iconos */
+      color: #004aad;
+      font-weight: bold;
+      font-size: 30px; /* Aumenté el tamaño de los iconos */
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    /* Contenedor principal */
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      text-align: left;
+      background-color: #ffffff;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+
+    .section-title {
+      font-size: 22px;
+      margin-bottom: 20px;
+      color: #333;
+      text-align: center;
+    }
+
+    /* Estilo de la tabla */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    table th, table td {
+      padding: 10px;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+
+    table th {
+      background-color: #004aad;
+      color: white;
+    }
+
+    /* Botón Exportar y Volver Atrás */
+    button {
+      padding: 10px;
+      font-size: 16px;
+      color: #fff;
+      background-color: #004aad;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-bottom: 20px;
+    }
+
+    button:hover {
+      background-color: #00327a;
+    }
+
+    .button-back {
+      background-color: #f44336;
+      margin-top: 20px;
+    }
+
+    .button-back:hover {
+      background-color: #e53935;
+    }
+
+    /* Estilo del pie de página */
+    footer {
+      background-color: #004aad;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      position: relative;
+      bottom: 0;
+      width: 100%;
+    }
+
+    footer p {
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo.png" alt="Logo de la Institución">
+    <h1>Escuela Primaria Jóvenes y Adultos N°8 - "Eva Duarte"</h1>
+    <nav>
+      <a href="index.html" title="home">🏠</a>
+      <a href="agregar_libros.html" title="Agregar Libro">➕</a>
+      <a href="buscar_libros.html" title="Buscar Libro">🔍</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h2 class="section-title">Listado de Libros</h2>
+    <button onclick="exportarCSV()">Exportar a CSV</button>
+    <table>
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Título</th>
+          <th>Autor</th>
+          <th>Año de Edición</th>
+          <th>Editorial</th>
+        </tr>
+      </thead>
+      <tbody id="tablaLibros">
+        <!-- Aquí se llenarán los libros con JavaScript -->
+      </tbody>
+    </table>
+    <button type="button" class="button-back" onclick="volverAtras()">Volver Atrás</button>
+  </main>
+
+  <script>
+    // Función para exportar los datos de la tabla a un archivo CSV
+    function exportarCSV() {
+      // Recuperar los libros desde LocalStorage
+      const libros = JSON.parse(localStorage.getItem('libros')) || [];
+
+      if (libros.length === 0) {
+        alert("No hay libros para exportar.");
+        return;
+      }
+
+      // Crear el encabezado del CSV
+      let csvContent = "Código,Título,Autor,Año de Edición,Editorial\n";
+
+      // Agregar cada libro al CSV
+      libros.forEach(libro => {
+        csvContent += `${libro.codigo},${libro.titulo},${libro.autor},${libro.anio},${libro.editorial}\n`;
+      });
+
+      // Crear un enlace temporal para la descarga
+      const blob = new Blob([csvContent], { type: 'text/csv' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'libros.csv'; // Nombre del archivo de descarga
+      link.click(); // Iniciar la descarga
+    }
+
+    // Función para regresar a la página anterior
+    function volverAtras() {
+      window.history.back(); // Regresa a la página anterior
+    }
+
+    // Función para mostrar los libros en la tabla
+    function mostrarLibros() {
+      const libros = JSON.parse(localStorage.getItem('libros')) || [];
+      const tabla = document.getElementById('tablaLibros');
+      libros.forEach(libro => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${libro.codigo}</td>
+          <td>${libro.titulo}</td>
+          <td>${libro.autor}</td>
+          <td>${libro.anio}</td>
+          <td>${libro.editorial}</td>
+        `;
+        tabla.appendChild(row);
+      });
+    }
+
+    // Cargar los libros al cargar la página
+    mostrarLibros();
+  </script>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2024 Danderfert Cesar. Todos los derechos reservados.</p>
+  </footer>
+</body>
+</html>

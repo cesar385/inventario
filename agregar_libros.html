@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agregar Libros</title>
+  <style>
+    /* Estilos generales */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Encabezado */
+    header {
+      background-color: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px;
+    }
+
+    header img {
+      max-width: 100px;
+    }
+
+    header h1 {
+      font-size: 24px;
+      margin: 0;
+      color: #004aad;
+    }
+
+    nav {
+      margin-top: 10px;
+    }
+
+    nav a {
+      text-decoration: none;
+      margin: 0 15px; /* Aumenté el margen entre los iconos */
+      color: #004aad;
+      font-weight: bold;
+      font-size: 30px; /* Aumenté el tamaño de los iconos */
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    /* Contenedor principal */
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      text-align: left;
+      background-color: #ffffff;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+
+    .section-title {
+      font-size: 22px;
+      margin-bottom: 20px;
+      color: #333;
+      text-align: center;
+    }
+
+    /* Grupo de entradas */
+    .input-group {
+      margin-bottom: 15px;
+    }
+
+    .input-group label {
+      display: block;
+      font-size: 16px;
+      margin-bottom: 5px;
+      color: #333;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    /* Botones */
+    button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      color: #fff;
+      background-color: #004aad;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-bottom: 10px;
+    }
+
+    button:hover {
+      background-color: #00327a;
+    }
+
+    .button-back {
+      background-color: #f44336;
+    }
+
+    .button-back:hover {
+      background-color: #e53935;
+    }
+
+    /* Estilo para la tabla de libros */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    table th, table td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    table th {
+      background-color: #f4f4f4;
+    }
+
+    /* Botones de Modificar y Eliminar */
+    .button-modify, .button-delete {
+      background-color: #004aad;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .button-modify:hover {
+      background-color: #00327a;
+    }
+
+    .button-delete:hover {
+      background-color: #e53935;
+    }
+
+    /* Estilos del pie de página */
+    footer {
+      background-color: #004aad;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      position: relative;
+      bottom: 0;
+      width: 100%;
+    }
+
+    footer p {
+      margin: 0;
+    }
+
+    footer a {
+      color: white;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo.png" alt="Logo de la Institución">
+    <h1>Escuela Primaria Jóvenes y Adultos N°8 - "Eva Duarte"</h1>
+    <nav>
+      <a href="index.html" title="home">🏠</a>
+      <a href="buscar_libros.html" title="Buscar Libro">🔍</a>
+      <a href="listar_libros.html" title="Listar y Exportar Libro">📊</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h2 class="section-title">Agregar un nuevo libro</h2>
+    <form id="form-agregar-libro">
+      <div class="input-group">
+        <label for="codigo">Código:</label>
+        <input type="text" id="codigo" readonly placeholder="El código se genera automáticamente">
+      </div>
+      <div class="input-group">
+        <label for="titulo">Título:</label>
+        <input type="text" id="titulo" placeholder="Ingrese el título del libro">
+      </div>
+      <div class="input-group">
+        <label for="autor">Autor:</label>
+        <input type="text" id="autor" placeholder="Ingrese el autor">
+      </div>
+      <div class="input-group">
+        <label for="anio">Año de Edición:</label>
+        <input type="number" id="anio" placeholder="Ingrese el año de edición">
+      </div>
+      <div class="input-group">
+        <label for="editorial">Editorial:</label>
+        <input type="text" id="editorial" placeholder="Ingrese la editorial del libro">
+      </div>
+      <button type="button" onclick="agregarLibro()">Agregar Libro</button>
+      <button type="button" class="button-back" onclick="volverAtras()">Volver Atrás</button>
+    </form>
+
+    <!-- Tabla de libros -->
+    <div class="book-list">
+      <h3>Libros Agregados:</h3>
+      <table id="tabla-libros">
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Título</th>
+            <th>Autor</th>
+            <th>Año de Edición</th>
+            <th>Editorial</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="libros"></tbody>
+      </table>
+    </div>
+  </main>
+
+  <script>
+    // Arreglo donde se guardan los libros
+    let libros = JSON.parse(localStorage.getItem('libros')) || []; // Cargar libros guardados desde LocalStorage
+    let contadorCodigo = libros.length + 1; // Generar códigos a partir del último libro guardado
+
+    function generarCodigo() {
+      // Generar código alfanumérico (ejemplo: "B001", "B002", ...)")
+      const codigo = `B${String(contadorCodigo).padStart(3, '0')}`;
+      contadorCodigo++; // Incrementar el contador para el siguiente libro
+      return codigo;
+    }
+
+    function agregarLibro() {
+      const titulo = document.getElementById('titulo').value;
+      const autor = document.getElementById('autor').value;
+      const anio = document.getElementById('anio').value;
+      const editorial = document.getElementById('editorial').value;
+
+      if (!titulo || !autor || !anio || !editorial) {
+        alert('Por favor, complete todos los campos.');
+        return;
+      }
+
+      const codigo = generarCodigo();  // Generar código automáticamente
+
+      // Crear el objeto libro
+      const libro = { codigo, titulo, autor, anio, editorial };
+
+      // Agregar el libro al arreglo
+      libros.push(libro);
+
+      // Guardar el arreglo de libros en el LocalStorage
+      localStorage.setItem('libros', JSON.stringify(libros));
+
+      // Mostrar el listado de libros
+      mostrarLibros();
+
+      // Limpiar los campos del formulario (excepto el código, ya que es generado automáticamente)
+      document.getElementById('form-agregar-libro').reset();
+    }
+
+    function mostrarLibros() {
+      const listaLibros = document.getElementById('libros');
+      listaLibros.innerHTML = ''; // Limpiar la lista antes de mostrarla
+
+      // Recorrer el arreglo de libros y crear una fila de tabla por cada libro
+      libros.forEach((libro, index) => {
+        const fila = document.createElement('tr');
+        fila.innerHTML = `
+          <td>${libro.codigo}</td>
+          <td>${libro.titulo}</td>
+          <td>${libro.autor}</td>
+          <td>${libro.anio}</td>
+          <td>${libro.editorial}</td>
+          <td>
+            <button class="button-modify" onclick="modificarLibro(${index})">Modificar</button>
+            <button class="button-delete" onclick="eliminarLibro(${index})">Eliminar</button>
+          </td>
+        `;
+        listaLibros.appendChild(fila);
+      });
+    }
+
+    function modificarLibro(index) {
+      const libro = libros[index];
+      document.getElementById('codigo').value = libro.codigo; // Mantener el código
+      document.getElementById('titulo').value = libro.titulo;
+      document.getElementById('autor').value = libro.autor;
+      document.getElementById('anio').value = libro.anio;
+      document.getElementById('editorial').value = libro.editorial;
+
+      // Eliminar el libro del arreglo para ser modificado
+      libros.splice(index, 1);
+      localStorage.setItem('libros', JSON.stringify(libros)); // Guardar los cambios en LocalStorage
+      mostrarLibros(); // Actualizar la lista de libros
+    }
+
+    function eliminarLibro(index) {
+      libros.splice(index, 1);
+      localStorage.setItem('libros', JSON.stringify(libros)); // Guardar los cambios en LocalStorage
+      mostrarLibros(); // Actualizar la lista de libros
+    }
+
+    // Mostrar los libros al cargar la página
+    mostrarLibros();
+
+    function volverAtras() {
+      window.history.back();
+    }
+  </script>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2024 Danderfert Cesar. Todos los derechos reservados.</p>
+  </footer>
+</body>
+</html>
